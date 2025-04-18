@@ -35,13 +35,18 @@ pipeline {
         }
         
         stage('Deploy to Kubernetes') {
-             steps {
-                 sh '''
-                     kubectl set image deployment/cw2-server cw2-server=${IMAGE_NAME}:${IMAGE_TAG} --record || \
-                     kubectl create deployment cw2-server --image=${IMAGE_NAME}:${IMAGE_TAG}
-                 '''
-             }
-         }
+            steps {
+                withEnv(["KUBECONFIG=/var/lib/jenkins/.kube/config"]) {
+                    sh '''
+
+                        kubectl set image deployment/cw2-server cw2-server=${IMAGE_NAME}:${IMAGE_TAG} || \
+                        kubectl create deployment cw2-server --image=${IMAGE_NAME}:${IMAGE_TAG}
+                    '''
+
+        }
+    }
+}
+
     }
 }
 
