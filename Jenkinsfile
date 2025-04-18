@@ -7,12 +7,6 @@ pipeline {
     }
 
     stages {
-        stage('Clone Repository') {
-            steps {
-                git 'https://github.com/Gideonkaka22/DevOps-pipeline.git'
-            }
-        }
-
         stage('Build Docker Image') {
             steps {
                 script {
@@ -50,3 +44,4 @@ pipeline {
         }
     }
 }
+
