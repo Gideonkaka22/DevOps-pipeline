@@ -42,7 +42,7 @@ pipeline {
                  ]) {
                     sh '''
                         /usr/local/bin/kubeproxy.sh set image deployment/cw2-server cw2-server=${IMAGE_NAME}:${IMAGE_TAG} || \
-                        /usr/local/bin/kubeproxy.sh create deployment cw2-server --image=${IMAGE_NAME}:${IMAGE_TAG}
+                        /usr/local/bin/kubeproxy.sh create deployment cw2-server --image=${IMAGE_NAME}:${IMAGE_TAG} --port=8081
                     '''
         }
     }
