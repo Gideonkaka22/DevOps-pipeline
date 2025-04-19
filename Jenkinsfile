@@ -18,6 +18,7 @@ pipeline {
         stage('Test Docker Container') {
             steps {
                 sh '''
+                    docker rm -f test-container || true
                     docker run -d --name test-container -p 8081:8081 ${IMAGE_NAME}:${IMAGE_TAG}
                     sleep 5
                     docker ps
