@@ -35,18 +35,16 @@ pipeline {
             }
         }
         
-        stage('Deploy to Kubernetes') {
-             steps {
-                 withEnv([
-                       "KUBECONFIG=/home/ubuntu/.kube/config"
-                 ]) {
-                    sh '''
-                        /usr/local/bin/kubeproxy.sh set image deployment/cw2-server cw2-server=${IMAGE_NAME}:${IMAGE_TAG} || \
-                        /usr/local/bin/kubeproxy.sh create deployment cw2-server --image=${IMAGE_NAME}:${IMAGE_TAG} --port=8081
-                    '''
+        stage('Run Ansible Playbook on Production Server') {
+            steps {
+                sh '''
+                    ssh -o StrictHostKeyChecking=no -i ~/.ssh/labsuser.pem ubuntu@54.92.164.111 '
+                      cd ~/ansible-k8s &&
+                      ansible-playbook cw2-playbook.yml
+                    '
+                '''
+            }
         }
-    }
-}
 
 
     }
