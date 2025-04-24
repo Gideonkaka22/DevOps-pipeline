@@ -38,7 +38,7 @@ pipeline {
         stage('Run Ansible Playbook on Production Server') {
             steps {
                 sh '''
-                    ssh -o StrictHostKeyChecking=no -i ~/.ssh/labsuser.pem ubuntu@54.92.164.111 '
+                    ssh -o StrictHostKeyChecking=no -i ~/.ssh/labsuser.pem ubuntu@34.235.144.156 '
                       cd ~/ansible-k8s &&
                       ansible-playbook cw2-playbook.yml
                     '
